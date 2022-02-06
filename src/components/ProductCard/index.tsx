@@ -30,7 +30,7 @@ export function ProductCard({ data, ...rest }: Props) {
 
   return (
     <Container>
-      <Content>
+      <Content {...rest}>
         <Image source={{ uri: data.photo_url }} />
         <Details>
           <Identification>

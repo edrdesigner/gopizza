@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Alert, TouchableOpacity, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
 import { Search } from '@components/Search';
 import { ProductCard, ProductProps } from '@components/ProductCard';
@@ -16,13 +17,15 @@ import {
   GreetingText,
   MenuHeader,
   MenuTitle,
-  MenuItemsNumber
+  MenuItemsNumber,
+  NewProductButton
 } from './styles';
 
 export function Home() {
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const [search, setSearch] = useState('');
   const { COLORS } = useTheme();
+  const navigation = useNavigation();
 
   function fetchPizzas(value?: string) {
     const formattedValue = value?.toLocaleLowerCase()?.trim() ?? '';
@@ -55,9 +58,19 @@ export function Home() {
     fetchPizzas('');
   }
 
-  useEffect(() => {
-    fetchPizzas(search);
-  }, [])
+  function handleOpen(id: string) {
+    navigation.navigate('product', { id })
+  }
+
+  function handleAdd() {
+    navigation.navigate('product', {});
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPizzas('');
+    }, [])
+  );
 
   return (
     <Container>
@@ -78,18 +91,28 @@ export function Home() {
       />
       <MenuHeader>
         <MenuTitle>Cardápio</MenuTitle>
-        <MenuItemsNumber>110 pizzas</MenuItemsNumber>
+        <MenuItemsNumber>{pizzas.length} pizzas</MenuItemsNumber>
       </MenuHeader>
       <FlatList
         data={pizzas}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ProductCard data={item} />}
+        renderItem={({ item }) => (
+          <ProductCard
+            data={item}
+            onPress={() => handleOpen(item.id)}
+          />
+        )}
         contentContainerStyle={{
           paddingTop: 20,
           paddingBottom: 125,
           marginHorizontal: 24,
         }}
         showsVerticalScrollIndicator={false}
+      />
+      <NewProductButton
+        title="Cadastrar pizza"
+        type="secondary"
+        onPress={handleAdd}
       />
     </Container>
   );
