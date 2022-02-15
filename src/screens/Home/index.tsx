@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTheme } from 'styled-components/native';
+import { useAuth } from '@hooks/auth';
 import { Search } from '@components/Search';
 import { ProductCard, ProductProps } from '@components/ProductCard';
 
@@ -22,6 +23,7 @@ import {
 } from './styles';
 
 export function Home() {
+  const { signOut, user } = useAuth();
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const [search, setSearch] = useState('');
   const { COLORS } = useTheme();
@@ -59,7 +61,8 @@ export function Home() {
   }
 
   function handleOpen(id: string) {
-    navigation.navigate('product', { id })
+    const route = user?.isAdmin ? 'product' : 'order';
+    navigation.navigate(route, { id })
   }
 
   function handleAdd() {
@@ -77,9 +80,9 @@ export function Home() {
       <Header>
         <Greeting>
           <GreetingEmoji source={happyEmoji} />
-          <GreetingText>Olá, Admin</GreetingText>
+          <GreetingText>Olá, {user?.name}</GreetingText>
         </Greeting>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
@@ -109,11 +112,13 @@ export function Home() {
         }}
         showsVerticalScrollIndicator={false}
       />
-      <NewProductButton
-        title="Cadastrar pizza"
-        type="secondary"
-        onPress={handleAdd}
-      />
+      { user?.isAdmin && (
+        <NewProductButton
+          title="Cadastrar pizza"
+          type="secondary"
+          onPress={handleAdd}
+        />
+      )}
     </Container>
   );
 }

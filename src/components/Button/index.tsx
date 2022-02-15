@@ -12,7 +12,7 @@ export function Button({
   title,
   type = 'primary',
   isLoading = false,
-  ...rest 
+  ...rest
 }: ButtonProps) {
   return (
     <Container type={type} enabled={!isLoading} {...rest}>
