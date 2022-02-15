@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>186761618904-bh06fe9f5ln4rr8g1c4au3n315an0kvo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.186761618904-bh06fe9f5ln4rr8g1c4au3n315an0kvo</string>
+	<key>API_KEY</key>
+	<string>GOOGLE_API_KEY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>186761618904</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gopizza</string>
+	<key>PROJECT_ID</key>
+	<string>edrmessage</string>
+	<key>STORAGE_BUCKET</key>
+	<string>edrmessage.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:186761618904:ios:08375d66ce99f3fbab3ead</string>
+	<key>DATABASE_URL</key>
+	<string>https://edrmessage.firebaseio.com</string>
+</dict>
+</plist>
